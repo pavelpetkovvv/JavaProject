@@ -82,12 +82,15 @@ public class Controller {
                 bankEmployee = true;
                 showNewWindow(e, "EmployeeWindow.fxml", "Employee UI"); //opens Employee UI
             }
-            else{
-                username = usernameField.getText().substring(0);
-                password = passwordField.getText().substring(0);
-                bankEmployee = false;
-                showNewWindow(e, "ClientWindow.fxml", "Client UI"); //opens Employee UI
-            }
+            else
+                if(received.equals("client")) {
+                    username = usernameField.getText().substring(0);
+                    password = passwordField.getText().substring(0);
+                    bankEmployee = false;
+                    showNewWindow(e, "ClientWindow.fxml", "Client UI"); //opens Employee UI
+                }
+                else
+                    incorrect.setVisible(true);
         }
 
     }

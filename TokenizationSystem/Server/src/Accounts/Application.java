@@ -91,9 +91,9 @@ public class Application {
     }
 
     public static String handleCommand(String command){
-        String[] commandCode = command.split(" "); //to make work fo many spaces
+        String[] commandCode = command.split("\\s+");
 
-        if(commandCode[COMMAND_POSITION].equals("1")){ //login
+        if(commandCode[COMMAND_POSITION].equals("1") && commandCode.length == 3){ //login
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==0) {
                 return "employee";
             }else {
@@ -103,7 +103,7 @@ public class Application {
             return "none";
         }
 
-        if(commandCode[COMMAND_POSITION].equals("2")){ //register user
+        if(commandCode[COMMAND_POSITION].equals("2") && commandCode.length == 6){ //register user
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==0){ //first authenticates that a bank employee wants to add new user
                 //example command:
                 //2 Admin Admin Pavel 123456 f/t
@@ -119,7 +119,7 @@ public class Application {
             }else return "nbe"; //not bank employee
         }
 
-        if(commandCode[COMMAND_POSITION].equals("3")){ //add card
+        if(commandCode[COMMAND_POSITION].equals("3") && commandCode.length == 5){ //add card
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==0){ //first authenticates that a bank employee wants to add new user
                 //example command:
                 //3 Admin Admin Pavel 123456789101
@@ -127,7 +127,7 @@ public class Application {
             }else return "nbe"; //not bank employee
         }
 
-        if(commandCode[COMMAND_POSITION].equals("4")){//tokenize card
+        if(commandCode[COMMAND_POSITION].equals("4") && commandCode.length == 4){//tokenize card
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==1){//first authenticates that a bank client wants to tokenize card
                 //example command:
                 //4 Pavel pass123 123456789101
@@ -135,7 +135,7 @@ public class Application {
             }
         }
 
-        if(commandCode[COMMAND_POSITION].equals("5")){//get card by token
+        if(commandCode[COMMAND_POSITION].equals("5") && commandCode.length == 4){//get card by token
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==1){//first authenticates that a bank client wants to tokenize card
                 //example command:
                 //5 Pavel pass123 101987654321

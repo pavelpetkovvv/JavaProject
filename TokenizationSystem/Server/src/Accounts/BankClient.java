@@ -16,7 +16,7 @@ public class BankClient extends User{
             if(c.getToken().equals(token))
                 return c.getCardNumber();
         }
-        return "No such token";
+        return "Wrong token";
     }
 
     boolean addCard(String cardNumber){
@@ -32,6 +32,6 @@ public class BankClient extends User{
                 return c.addToken();
             }
         }
-        return "0";
+        return "Wrong card number";
     }
 }
