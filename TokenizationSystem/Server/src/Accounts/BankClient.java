@@ -18,4 +18,11 @@ public class BankClient extends User{
         }
         return "0";
     }
+
+    boolean addCard(String cardNumber){
+        Card newCard = new Card();
+        newCard.setCardNumber(cardNumber);
+        card.add(newCard);
+        return true;
+    }
 }

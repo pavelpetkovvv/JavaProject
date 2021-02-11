@@ -38,6 +38,10 @@ public class Controller {
     @FXML
     private Button RegisterButton;
 
+
+    @FXML
+    private Button addCardButton;
+
     @FXML
     private TextField passwordAddUser;
 
@@ -46,6 +50,12 @@ public class Controller {
 
     @FXML
     private RadioButton bankEmployeeRadioButton;
+
+    @FXML
+    private TextField usernameAddCard;
+
+    @FXML
+    private TextField cardNumberField;
 
     public void setSendButton(ActionEvent e) throws IOException {
         client.sendMessage("1 " + usernameField.getText() + " " + passwordField.getText());
@@ -78,6 +88,13 @@ public class Controller {
         }
         else bankEmployee = "f";
         client.sendMessage("2 " + username + " " + password + " " + usernameAddUser.getText() + " " + passwordAddUser.getText() +" " + bankEmployee);
+
+        System.out.println(client.readMessage());
+    }
+
+    public void handleAddCardButton(ActionEvent e){
+
+        client.sendMessage("3 " + username + " " + password + " " + usernameAddCard.getText() + " " + cardNumberField.getText());
 
         System.out.println(client.readMessage());
     }

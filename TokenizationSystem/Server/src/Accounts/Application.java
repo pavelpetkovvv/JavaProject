@@ -61,12 +61,15 @@ public class Application {
         return listOfUsers.get(userName)!=null;
     }
 
-    boolean addCard(Card card, User user, BankEmployee employee){
-        if(!user.isBankEmployee()){
-            return ((BankClient) user).card.add(card);
-            //check if card does already exist
+    static String addCard(String username, String cardNumber){
+        if(listOfUsers.get(username)!=null){
+            if(!listOfUsers.get(username).isBankEmployee()){
+                BankClient client = (BankClient) listOfUsers.get(username);
+                if(client.addCard(cardNumber))
+                    return "success";
+            }else return "nbc"; //not bank client
         }
-        return false;
+        return "none"; //user does not exist
     }
 
     public static String handleCommand(String command){
@@ -98,8 +101,13 @@ public class Application {
             }else return "nbe"; //not bank employee
         }
 
-
-
+        if(commandCode[COMMAND_POSITION].equals("3")){ //add card
+            if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==0){ //first authenticates that a bank employee wants to add new user
+                //example command:
+                //2 Admin Admin Pavel 123456789101
+                return addCard(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION]);
+            }else return "nbe"; //not bank employee
+        }
 
         return "Error";
     }

@@ -7,9 +7,12 @@ class Card {
     private String cardNumber;
     private String token;
 
-    public Card(String cardNumber) {
-        //add number validation
-        this.cardNumber = new String(cardNumber);
+    public Card() {
+        this.cardNumber = new String();
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     boolean addToken(){
