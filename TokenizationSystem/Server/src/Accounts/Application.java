@@ -94,7 +94,7 @@ public class Application {
                     if(addUser(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION], false)==0)
                         return "success"; //added successfully
 
-                    return "exist"; //username is redundant
+                    return "exists"; //username is redundant
             }else return "nbe"; //not bank employee
         }
 

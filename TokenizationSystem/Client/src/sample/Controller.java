@@ -17,9 +17,9 @@ import java.io.IOException;
 public class Controller {
 
     Client client = new Client("localHost", 8080);
-    String username = new String();
-    String password = new String();
-    boolean bankEmployee = false;
+    static String username = new String();
+    static String password = new String();
+    static boolean bankEmployee = false;
 
     //login screen elements:
     @FXML
