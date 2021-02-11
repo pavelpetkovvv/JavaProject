@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import Accounts.Application;
 
 public class ClientHandler extends Thread {
 
@@ -28,6 +29,9 @@ public class ClientHandler extends Thread {
                 received = in.readUTF();
                 System.out.println(received);
 
+                out.writeUTF(Application.handleCommand(received));
+
+                /*
                 switch (received){
                     case "hello" -> toReturn = "hi";
                     case "Ivan" -> toReturn = "pedal";
@@ -35,6 +39,8 @@ public class ClientHandler extends Thread {
                     default -> toReturn = "";
                 }
                 out.writeUTF(toReturn);
+                */
+
 
             } catch (IOException e) {
                 e.printStackTrace();

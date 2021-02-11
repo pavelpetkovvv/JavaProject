@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="center" hgap="10" prefHeight="373.0" prefWidth="455.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="387.9999755859375" minWidth="349.599951171875" prefWidth="349.599951171875" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="194.39999389648438" minHeight="40.0000015258789" prefHeight="44.80000457763671" />
+      <RowConstraints maxHeight="191.1999984741211" minHeight="10.0" prefHeight="83.19998779296876" />
+      <RowConstraints maxHeight="194.39999389648438" minHeight="32.00002441406252" prefHeight="69.59999389648436" />
+      <RowConstraints maxHeight="296.0000122070313" minHeight="78.39998168945306" prefHeight="114.4" />
+      <RowConstraints maxHeight="512.0000183105469" minHeight="37.60000000000002" prefHeight="37.60000000000002" />
+      <RowConstraints maxHeight="512.0000183105469" minHeight="72.80003051757808" prefHeight="72.80003051757808" />
+   </rowConstraints>
+   <children>
+      <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false" onAction="#setSendButton" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></Button>
+      <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="228.0" promptText="Password" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets left="30.0" right="30.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="276.0" promptText="Username" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets left="30.0" right="30.0" />
+         </GridPane.margin>
+      </TextField>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="30.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="30.0" />
+         </GridPane.margin>
+      </Text>
+      <Text fx:id="incorrect" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect username/password" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+   </children>
+</GridPane>

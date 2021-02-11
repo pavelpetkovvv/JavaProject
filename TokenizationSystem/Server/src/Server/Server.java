@@ -1,5 +1,5 @@
 package Server;
-import Accounts.AccountsDatabase;
+import Accounts.Application;
 
 import java.net.*;
 import java.io.*;
@@ -7,7 +7,9 @@ import java.io.*;
 public class Server {
 
     public static void main(String[] args)throws IOException {
-        AccountsDatabase database;
+
+        Application database = new Application();
+
         ServerSocket serverSocket = new ServerSocket(8080);
         while(true){
             Socket socket = null;

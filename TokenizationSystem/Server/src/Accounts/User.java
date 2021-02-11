@@ -3,7 +3,7 @@ package Accounts;
 abstract class User {
     private boolean isBankEmployee;
     private String userName;
-    private String password;
+    private String password; //Admin    ~     7y1rfhqwhvu1h2f48hwnvuqquih
 
     User(boolean isBankEmployee, String userName, String password) {
         this.isBankEmployee = isBankEmployee;
