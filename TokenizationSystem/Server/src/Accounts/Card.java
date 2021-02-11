@@ -15,10 +15,13 @@ class Card {
         this.cardNumber = cardNumber;
     }
 
-    boolean addToken(){
-        String token = new String();
-        //algorithm for creating the token
-        return true;
+    String addToken(){
+        if(token==null) {
+            token = new String();
+            token = "123456";
+            //algorithm for creating the token
+        }
+        return token;
     }
 
     public String getCardNumber() {

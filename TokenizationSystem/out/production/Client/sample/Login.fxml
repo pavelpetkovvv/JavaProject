@@ -22,7 +22,7 @@
       <RowConstraints maxHeight="512.0000183105469" minHeight="72.80003051757808" prefHeight="72.80003051757808" />
    </rowConstraints>
    <children>
-      <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false" onAction="#setSendButton" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+      <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false" onAction="#handleLoginButton" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Button>

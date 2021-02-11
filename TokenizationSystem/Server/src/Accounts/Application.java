@@ -31,6 +31,15 @@ public class Application {
         return false;
     }
 
+    static String generateToken(String username,String cardNumber){
+        User user = listOfUsers.get(username);
+        if(user.isBankEmployee())
+            return "nbc";
+        else{
+            return (((BankClient) user).addToken(cardNumber));
+        }
+    }
+
     static int authenticateByUsernamePassword(String username, String password){
         if(searchUser(username)){
             User user = listOfUsers.get(username);
@@ -104,9 +113,17 @@ public class Application {
         if(commandCode[COMMAND_POSITION].equals("3")){ //add card
             if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==0){ //first authenticates that a bank employee wants to add new user
                 //example command:
-                //2 Admin Admin Pavel 123456789101
+                //3 Admin Admin Pavel 123456789101
                 return addCard(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION]);
             }else return "nbe"; //not bank employee
+        }
+
+        if(commandCode[COMMAND_POSITION].equals("4")){//tokenize card
+            if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==1){//first authenticates that a bank client wants to tokenize card
+                //example command:
+                //4 Pavel pass123 123456789101
+                return generateToken(commandCode[USERNAME_POSITION], commandCode[ARGUMENT1_POSITION]);
+            }
         }
 
         return "Error";

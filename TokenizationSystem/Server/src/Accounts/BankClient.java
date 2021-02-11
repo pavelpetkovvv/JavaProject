@@ -25,4 +25,13 @@ public class BankClient extends User{
         card.add(newCard);
         return true;
     }
+
+    String addToken(String cardNumber){
+        for(Card c : card){
+            if(c.getCardNumber().equals(cardNumber)){
+                return c.addToken();
+            }
+        }
+        return "0";
+    }
 }

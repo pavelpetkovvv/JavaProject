@@ -34,10 +34,10 @@ public class Controller {
     @FXML
     private Text incorrect;
 
+
     //employee screen elements:
     @FXML
     private Button RegisterButton;
-
 
     @FXML
     private Button addCardButton;
@@ -57,7 +57,18 @@ public class Controller {
     @FXML
     private TextField cardNumberField;
 
-    public void setSendButton(ActionEvent e) throws IOException {
+
+    //client screen elements:
+    @FXML
+    private TextField tokenField;
+
+    @FXML
+    private TextField cardNumberTokenizeField;
+
+    @FXML
+    private Button generateTokenButton;
+
+    public void handleLoginButton(ActionEvent e) throws IOException {
         client.sendMessage("1 " + usernameField.getText() + " " + passwordField.getText());
         String received = client.readMessage();
         if(received.equals("none"))
@@ -66,16 +77,14 @@ public class Controller {
             if(received.equals("employee")){
                 username = usernameField.getText().substring(0);
                 password = passwordField.getText().substring(0);
-                System.out.println(username);
-                System.out.println(password);
                 bankEmployee = true;
                 showNewWindow(e, "EmployeeWindow.fxml", "Employee UI"); //opens Employee UI
             }
             else{
-                username = usernameField.getText();
-                password = passwordField.getText();
+                username = usernameField.getText().substring(0);
+                password = passwordField.getText().substring(0);
                 bankEmployee = false;
-                //open user window
+                showNewWindow(e, "ClientWindow.fxml", "Client UI"); //opens Employee UI
             }
         }
 
@@ -97,6 +106,13 @@ public class Controller {
         client.sendMessage("3 " + username + " " + password + " " + usernameAddCard.getText() + " " + cardNumberField.getText());
 
         System.out.println(client.readMessage());
+    }
+
+    public void handleTokenizeButton(ActionEvent e){
+
+        client.sendMessage("4 " + username + " " + password + " " + cardNumberTokenizeField.getText());
+
+        tokenField.setText(client.readMessage());
     }
 
     private void showNewWindow(ActionEvent event, String name, String windowName) throws IOException {
