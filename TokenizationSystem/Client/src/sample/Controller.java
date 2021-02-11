@@ -36,37 +36,39 @@ public class Controller {
 
 
     //employee screen elements:
+    //register new user
+    @FXML
+    private TextField passwordAddUser;
+    @FXML
+    private TextField usernameAddUser;
+    @FXML
+    private RadioButton bankEmployeeRadioButton;
     @FXML
     private Button RegisterButton;
-
+    //add new card
+    @FXML
+    private TextField usernameAddCard;
+    @FXML
+    private TextField cardNumberField;
     @FXML
     private Button addCardButton;
 
-    @FXML
-    private TextField passwordAddUser;
-
-    @FXML
-    private TextField usernameAddUser;
-
-    @FXML
-    private RadioButton bankEmployeeRadioButton;
-
-    @FXML
-    private TextField usernameAddCard;
-
-    @FXML
-    private TextField cardNumberField;
-
 
     //client screen elements:
+    //generate token:
     @FXML
     private TextField tokenField;
-
     @FXML
     private TextField cardNumberTokenizeField;
-
     @FXML
     private Button generateTokenButton;
+    //get card number by token
+    @FXML
+    private TextField tokenGetCardField;
+    @FXML
+    private TextField cardNumberGetCardField;
+    @FXML
+    private Button getCardButton;
 
     public void handleLoginButton(ActionEvent e) throws IOException {
         client.sendMessage("1 " + usernameField.getText() + " " + passwordField.getText());
@@ -105,6 +107,7 @@ public class Controller {
 
         client.sendMessage("3 " + username + " " + password + " " + usernameAddCard.getText() + " " + cardNumberField.getText());
 
+
         System.out.println(client.readMessage());
     }
 
@@ -113,6 +116,13 @@ public class Controller {
         client.sendMessage("4 " + username + " " + password + " " + cardNumberTokenizeField.getText());
 
         tokenField.setText(client.readMessage());
+    }
+
+    public void handleGetCardButton(ActionEvent e){
+
+        client.sendMessage("5 " + username + " " + password + " " + tokenGetCardField.getText());
+
+        cardNumberGetCardField.setText(client.readMessage());
     }
 
     private void showNewWindow(ActionEvent event, String name, String windowName) throws IOException {

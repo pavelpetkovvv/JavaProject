@@ -34,9 +34,18 @@ public class Application {
     static String generateToken(String username,String cardNumber){
         User user = listOfUsers.get(username);
         if(user.isBankEmployee())
-            return "nbc";
+            return "nbc"; //not bank client
         else{
             return (((BankClient) user).addToken(cardNumber));
+        }
+    }
+
+    static String getCardByToken(String username, String token){
+        User user = listOfUsers.get(username);
+        if(user.isBankEmployee())
+            return "nbc"; //not bank client
+        else{
+            return (((BankClient) user).getCardNumberByToken(token));
         }
     }
 
@@ -123,6 +132,14 @@ public class Application {
                 //example command:
                 //4 Pavel pass123 123456789101
                 return generateToken(commandCode[USERNAME_POSITION], commandCode[ARGUMENT1_POSITION]);
+            }
+        }
+
+        if(commandCode[COMMAND_POSITION].equals("5")){//get card by token
+            if(authenticateByUsernamePassword(commandCode[USERNAME_POSITION], commandCode[PASSWORD_POSITION])==1){//first authenticates that a bank client wants to tokenize card
+                //example command:
+                //5 Pavel pass123 101987654321
+                return getCardByToken(commandCode[USERNAME_POSITION], commandCode[ARGUMENT1_POSITION]);
             }
         }
 

@@ -16,7 +16,7 @@ public class BankClient extends User{
             if(c.getToken().equals(token))
                 return c.getCardNumber();
         }
-        return "0";
+        return "No such token";
     }
 
     boolean addCard(String cardNumber){
