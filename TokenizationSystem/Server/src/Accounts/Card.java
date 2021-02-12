@@ -64,7 +64,7 @@ class Card {
     private void saveTokensListToXML(){
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("allTokensList", java.util.Map.class);
-        String xml = xStream.toXML(allCardsList);
+        String xml = xStream.toXML(allTokensList);
         try (PrintWriter out = new PrintWriter("tokensList.xml")) {
             out.println(xml);
         } catch (FileNotFoundException e) {

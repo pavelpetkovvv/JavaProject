@@ -30,15 +30,13 @@ public class Application {
         listOfUsers.put("Admin", Admin);
         loadListOfUsers();
         Card.loadCardsListFromXML();
-        /*
         Card.loadTokensListFromXML();
         for(Map.Entry<String, User> entry : listOfUsers.entrySet()){
             if(!entry.getValue().isBankEmployee()){
-                ((BankClient) entry).loadCardsFromXML();
+                User bankClient = entry.getValue();
+                ((BankClient) bankClient).loadCardsFromXML();
             }
         }
-
-         */
     }
 
 

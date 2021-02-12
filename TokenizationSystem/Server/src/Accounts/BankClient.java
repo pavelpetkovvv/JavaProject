@@ -35,15 +35,19 @@ public class BankClient extends User{
      void loadCardsFromXML(){
         Path path = Paths.get("user"+ getUserName()+ "cards.xml");
         String xml = null;
-        try {
-            xml = Files.readString(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        XStream xStream = new XStream(new DomDriver());
-        xStream.alias("card", java.util.ArrayList.class);
-        System.out.println(xml);
-        card = (ArrayList<Card>) xStream.fromXML(xml);
+            try {
+                xml = Files.readString(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            XStream xStream = new XStream(new DomDriver());
+            xStream.alias("card", java.util.ArrayList.class);
+            System.out.println(xml);
+            if(xml!=null) {
+                if (card == null)
+                    card = new ArrayList<Card>();
+                card = (ArrayList<Card>) xStream.fromXML(xml);
+            }
     }
 
     String getCardNumberByToken(String token){
