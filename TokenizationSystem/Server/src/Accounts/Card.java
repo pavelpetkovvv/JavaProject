@@ -1,12 +1,22 @@
 package Accounts;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 class Card {
 
-    private static Map<String, String> allCardsList = new HashMap<String, String>();
+    private static Map<String, Boolean> allCardsList = new HashMap<String, Boolean>();
+    private static Map<String, Boolean> allTokensList = new HashMap<String, Boolean>();
 
     private String cardNumber;
     private String token;
@@ -15,9 +25,72 @@ class Card {
         this.cardNumber = new String();
     }
 
-    void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-        allCardsList.put(cardNumber, "0");
+    boolean setCardNumber(String cardNumber) {
+        if(validateCard(cardNumber)) {
+            this.cardNumber = cardNumber;
+            allCardsList.put(cardNumber, false);
+            saveCardsListToXML();
+            return true;
+        }
+        return false;
+    }
+
+
+    private void saveCardsListToXML(){
+        XStream xStream = new XStream(new DomDriver());
+        xStream.alias("allCardsList", java.util.Map.class);
+        String xml = xStream.toXML(allCardsList);
+        try (PrintWriter out = new PrintWriter("cardsList.xml")) {
+            out.println(xml);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void loadCardsListFromXML(){
+        Path path = Paths.get("cardsList.xml");
+        String xml = null;
+        try {
+            xml = Files.readString(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        XStream xStream = new XStream(new DomDriver());
+        System.out.println(xml);
+        allCardsList = (Map<String, Boolean>) xStream.fromXML(xml);
+    }
+
+    private void saveTokensListToXML(){
+        XStream xStream = new XStream(new DomDriver());
+        xStream.alias("allTokensList", java.util.Map.class);
+        String xml = xStream.toXML(allCardsList);
+        try (PrintWriter out = new PrintWriter("tokensList.xml")) {
+            out.println(xml);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean validateCard(String cardNumber){
+        if(cardNumber.length() == 16 && !allCardsList.containsKey(cardNumber)){
+            if(((int)cardNumber.charAt(0) - 48) > 2 && ((int)cardNumber.charAt(0) - 48) < 7){
+                int sum = 0;
+                int number;
+                for(int i = 15; i >= 0; i --){
+
+                    if(i%2 == 1)
+                        number = ((int)cardNumber.charAt(i) - 48);
+                    else
+                        number = ((int)cardNumber.charAt(i) - 48) * 2;
+
+                    if(number > 9)
+                        number = number - 9;
+                    sum+=number;
+                }
+                return sum % 10 == 0;
+            }
+        }
+        return false;
     }
 
     static boolean cardExists(String cardnumber){
@@ -27,7 +100,8 @@ class Card {
     String addToken(){
         if(token==null) {
             token = generateToken();
-            allCardsList.replace(cardNumber, "0", token);
+            allCardsList.replace(cardNumber, false, true);
+            saveTokensListToXML();
         }
         return token;
     }
@@ -39,7 +113,7 @@ class Card {
     String getToken() {
         if(token!=null)
             return token;
-        else return "0";
+        else return "none";
     }
 
     private String generateToken(){
@@ -49,6 +123,7 @@ class Card {
 
         do {
             token = new String();
+            sum = 0;
 
             int firstNumber;
             int cardFirstNumber = cardNumber.charAt(0) - 48;
@@ -84,7 +159,8 @@ class Card {
             }
             System.out.println("Sum: " + sum);
             System.out.println("Complete token: " + token);
-        }while (sum % 10 == 0 || allCardsList.containsValue(token));
+        }while (sum % 10 == 0 || allTokensList.containsKey(token));
+        allTokensList.put(token, true);
         return token;
 
         //example result:

@@ -26,8 +26,8 @@ public class Server {
                 System.out.println("Assigning new thread for this client");
 
                 Thread t = new ClientHandler(in, out, socket);
-
                 t.start();
+
             }catch (Exception e){
                 socket.close();
                 e.printStackTrace();

@@ -31,16 +31,6 @@ public class ClientHandler extends Thread {
 
                 out.writeUTF(Application.handleCommand(received));
 
-                /*
-                switch (received){
-                    case "hello" -> toReturn = "hi";
-                    case "Ivan" -> toReturn = "pedal";
-                    case "Pavel" -> toReturn = "gotin";
-                    default -> toReturn = "";
-                }
-                out.writeUTF(toReturn);
-                */
-
 
             } catch (IOException e) {
                 e.printStackTrace();

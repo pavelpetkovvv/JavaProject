@@ -95,6 +95,8 @@ public class Controller {
 
     }
 
+
+    //TODO add visual feedback to lest user know if operation is successful
     public void handleRegisterButton(ActionEvent e){
         String bankEmployee = new String();
         if(bankEmployeeRadioButton.isSelected()){

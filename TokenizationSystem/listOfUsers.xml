@@ -1,0 +1,19 @@
+<listOfUsers>
+  <entry>
+    <string>Ivan</string>
+    <Accounts.BankClient>
+      <isBankEmployee>false</isBankEmployee>
+      <userName>Ivan</userName>
+      <password>asdf</password>
+      <card/>
+    </Accounts.BankClient>
+  </entry>
+  <entry>
+    <string>Admin</string>
+    <Accounts.BankEmployee>
+      <isBankEmployee>true</isBankEmployee>
+      <userName>Admin</userName>
+      <password>Admin</password>
+    </Accounts.BankEmployee>
+  </entry>
+</listOfUsers>

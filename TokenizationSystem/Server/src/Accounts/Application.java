@@ -1,5 +1,15 @@
 package Accounts;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.FloatBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Application {
@@ -15,9 +25,38 @@ public class Application {
     private static Map<String, User> listOfUsers; //list of all users, mapping Username (key) to User (value)
 
     public Application() {
-        listOfUsers = new HashMap<>();
+        listOfUsers = new HashMap<String, User>();
         User Admin = new BankEmployee(true, "Admin", "Admin");
         listOfUsers.put("Admin", Admin);
+        //loadListOfUsers();
+        //Card.loadCardsListFromXML();
+    }
+
+
+    //save listOfUsers in XML serialization
+    static void saveListOfUsers(){
+        XStream xStream = new XStream(new DomDriver());
+        xStream.alias("listOfUsers", java.util.Map.class);
+        String xml = xStream.toXML(listOfUsers);
+        try (PrintWriter out = new PrintWriter("listOfUsers.xml")) {
+            out.println(xml);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //load listOfUsers from XML serialization
+    static void loadListOfUsers(){
+        Path path = Paths.get("listOfUsers.xml");
+        String xml = null;
+        try {
+            xml = Files.readString(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        XStream xStream = new XStream(new DomDriver());
+        System.out.println(xml);
+        listOfUsers = (Map<String, User>) xStream.fromXML(xml);
     }
 
     //authenticates that the user is registered as BankEmployee
@@ -84,7 +123,9 @@ public class Application {
             if(!listOfUsers.get(username).isBankEmployee()){
                 BankClient client = (BankClient) listOfUsers.get(username);
                 if(client.addCard(cardNumber))
-                    return "success";
+                    return "success"; //card added
+                else
+                    return "unsuccessful";//card is not valid
             }else return "nbc"; //not bank client
         }
         return "none"; //user does not exist
@@ -109,11 +150,15 @@ public class Application {
                 //2 Admin Admin Pavel 123456 f/t
 
                 if(commandCode[ARGUMENT3_POSITION].equals("t"))
-                    if(addUser(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION], true)==0)
+                    if(addUser(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION], true)==0) {
+                        saveListOfUsers();
                         return "success"; //added successfully
+                    }
                 if(commandCode[ARGUMENT3_POSITION].equals("f"))
-                    if(addUser(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION], false)==0)
+                    if(addUser(commandCode[ARGUMENT1_POSITION], commandCode[ARGUMENT2_POSITION], false)==0) {
+                        saveListOfUsers();
                         return "success"; //added successfully
+                    }
 
                     return "exists"; //username is redundant
             }else return "nbe"; //not bank employee

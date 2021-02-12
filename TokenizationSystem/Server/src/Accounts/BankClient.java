@@ -21,14 +21,14 @@ public class BankClient extends User{
 
     boolean addCard(String cardNumber){
         Card newCard = new Card();
-        //check if card number is valid
-        if(!Card.cardExists(cardNumber)) {
-            newCard.setCardNumber(cardNumber);
+        if(newCard.setCardNumber(cardNumber))
+        {
             card.add(newCard);
             return true;
-        }else
-            return false;
+        }
+        return false;
     }
+
 
     String addToken(String cardNumber){
         for(Card c : card){
