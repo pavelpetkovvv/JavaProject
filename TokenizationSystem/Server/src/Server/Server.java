@@ -30,7 +30,6 @@ public class Server {
 
             }catch (Exception e){
                 socket.close();
-                e.printStackTrace();
             }
         }
     }

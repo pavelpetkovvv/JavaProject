@@ -56,6 +56,7 @@ class Card {
             e.printStackTrace();
         }
         XStream xStream = new XStream(new DomDriver());
+        xStream.alias("allCardsList", java.util.Map.class);
         System.out.println(xml);
         allCardsList = (Map<String, Boolean>) xStream.fromXML(xml);
     }
@@ -69,6 +70,20 @@ class Card {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    static void loadTokensListFromXML(){
+        Path path = Paths.get("tokensList.xml");
+        String xml = null;
+        try {
+            xml = Files.readString(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        XStream xStream = new XStream(new DomDriver());
+        xStream.alias("allTokensList", java.util.Map.class);
+        System.out.println(xml);
+        allTokensList = (Map<String, Boolean>) xStream.fromXML(xml);
     }
 
     private boolean validateCard(String cardNumber){

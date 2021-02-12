@@ -28,8 +28,17 @@ public class Application {
         listOfUsers = new HashMap<String, User>();
         User Admin = new BankEmployee(true, "Admin", "Admin");
         listOfUsers.put("Admin", Admin);
-        //loadListOfUsers();
-        //Card.loadCardsListFromXML();
+        loadListOfUsers();
+        Card.loadCardsListFromXML();
+        /*
+        Card.loadTokensListFromXML();
+        for(Map.Entry<String, User> entry : listOfUsers.entrySet()){
+            if(!entry.getValue().isBankEmployee()){
+                ((BankClient) entry).loadCardsFromXML();
+            }
+        }
+
+         */
     }
 
 
@@ -55,6 +64,7 @@ public class Application {
             e.printStackTrace();
         }
         XStream xStream = new XStream(new DomDriver());
+        xStream.alias("listOfUsers", java.util.Map.class);
         System.out.println(xml);
         listOfUsers = (Map<String, User>) xStream.fromXML(xml);
     }
