@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
@@ -45,6 +46,10 @@ public class Controller {
     private RadioButton bankEmployeeRadioButton;
     @FXML
     private Button RegisterButton;
+    @FXML
+    private Text usernameTakenWarning;
+    @FXML
+    private Text registrationSuccessful;
     //add new card
     @FXML
     private TextField usernameAddCard;
@@ -52,7 +57,12 @@ public class Controller {
     private TextField cardNumberField;
     @FXML
     private Button addCardButton;
-
+    @FXML
+    private Text invalidUsernameWarning;
+    @FXML
+    private Text invalidCardNumber;
+    @FXML
+    private Text cardAdded;
 
     //client screen elements:
     //generate token:
@@ -95,8 +105,14 @@ public class Controller {
 
     }
 
+    public void setFeedbackInvisible(MouseEvent e){
+        registrationSuccessful.setVisible(false);
+        usernameTakenWarning.setVisible(false);
+        invalidUsernameWarning.setVisible(false);
+        invalidCardNumber.setVisible(false);
+        cardAdded.setVisible(false);
+    }
 
-    //TODO add visual feedback to lest user know if operation is successful
     public void handleRegisterButton(ActionEvent e){
         String bankEmployee = new String();
         if(bankEmployeeRadioButton.isSelected()){
@@ -105,15 +121,30 @@ public class Controller {
         else bankEmployee = "f";
         client.sendMessage("2 " + username + " " + password + " " + usernameAddUser.getText() + " " + passwordAddUser.getText() +" " + bankEmployee);
 
-        System.out.println(client.readMessage());
+        String received = client.readMessage();
+        if(received.equals("success"))
+            registrationSuccessful.setVisible(true);
+        else
+            if(received.equals("exists"))
+                usernameTakenWarning.setVisible(true);
+        System.out.println(received);
     }
 
     public void handleAddCardButton(ActionEvent e){
 
         client.sendMessage("3 " + username + " " + password + " " + usernameAddCard.getText() + " " + cardNumberField.getText());
 
+        String received = client.readMessage();
 
-        System.out.println(client.readMessage());
+        if(received.equals("unsuccessful"))
+            invalidCardNumber.setVisible(true);
+        else
+            if(received.equals("none"))
+                invalidUsernameWarning.setVisible(true);
+            else
+                if(received.equals("success"))
+                    cardAdded.setVisible(true);
+        System.out.println(received);
     }
 
     public void handleTokenizeButton(ActionEvent e){

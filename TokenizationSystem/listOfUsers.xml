@@ -9,6 +9,32 @@
     </Accounts.BankClient>
   </entry>
   <entry>
+    <string>Georgi</string>
+    <Accounts.BankClient>
+      <isBankEmployee>false</isBankEmployee>
+      <userName>Georgi</userName>
+      <password>asdf</password>
+      <card/>
+    </Accounts.BankClient>
+  </entry>
+  <entry>
+    <string>Pavel</string>
+    <Accounts.BankEmployee>
+      <isBankEmployee>true</isBankEmployee>
+      <userName>Pavel</userName>
+      <password>asdf</password>
+    </Accounts.BankEmployee>
+  </entry>
+  <entry>
+    <string>Petur</string>
+    <Accounts.BankClient>
+      <isBankEmployee>false</isBankEmployee>
+      <userName>Petur</userName>
+      <password>asdf</password>
+      <card/>
+    </Accounts.BankClient>
+  </entry>
+  <entry>
     <string>Admin</string>
     <Accounts.BankEmployee>
       <isBankEmployee>true</isBankEmployee>
